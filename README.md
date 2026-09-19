@@ -6,9 +6,49 @@ Todos los notebooks están **ejecutados**, con las salidas y las gráficas ya re
 
 | Actividad | Tema | Ver |
 |---|---|---|
+| **5** | Optimización de un modelo de ensamble (Random Forest) | [Abrir notebook](Actividad5/Actividad5_Optimizacion_Ensamble.ipynb) |
 | **4** | Clasificación con Máquinas de Soporte Vectorial (SVM) | [Abrir notebook](Actividad4/Actividad4_SVM_Wine.ipynb) |
 | **3** | Clasificación con SVM y agrupamiento con K-Means | [Abrir notebook](Actividad3/Actividad3_SVM_Clustering.ipynb) |
 | **2** | Modelos de regresión para estimar el desempeño académico | [Abrir notebook](Actividad2/Actividad2_Modelos_Regresion.ipynb) |
+
+---
+
+## Actividad 5 — Optimización de un modelo de ensamble
+
+### ▶ Ver la actividad (se abre en el navegador, no requiere descargar nada)
+
+**[Actividad5_Optimizacion_Ensamble.ipynb](Actividad5/Actividad5_Optimizacion_Ensamble.ipynb)** — notebook ejecutado, con todo el código, las salidas, las tablas y las 6 gráficas ya renderizadas.
+
+Enlaces alternativos por si el visor de GitHub tarda en cargar:
+
+- [Abrir en Google Colab](https://colab.research.google.com/github/Maade0n/analitica-datos-tecmilenio/blob/main/Actividad5/Actividad5_Optimizacion_Ensamble.ipynb) (ejecutable)
+- [Abrir en nbviewer](https://nbviewer.org/github/Maade0n/analitica-datos-tecmilenio/blob/main/Actividad5/Actividad5_Optimizacion_Ensamble.ipynb) (solo lectura)
+
+### Planteamiento
+
+| Campo | Detalle |
+|---|---|
+| Dataset | Breast Cancer Wisconsin (Diagnostic), [UCI](https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic) vía `sklearn.datasets.load_breast_cancer` |
+| Problema | Clasificación binaria: tumor maligno (1) o benigno (0) |
+| Observación | Una biopsia FNA descrita por 30 mediciones de los núcleos celulares |
+| Modelo | `RandomForestClassifier` dentro de un `Pipeline` |
+| Métrica principal | **Recall** de la clase maligna (un cáncer no detectado es el error más costoso) |
+| Métricas complementarias | F1-score y ROC-AUC |
+| Partición | 80/20 estratificada, semilla 42; validación cruzada `StratifiedKFold` de 5 particiones |
+
+### Resultados en prueba
+
+| Modelo | Recall | F1 / ROC-AUC | Características |
+|---|---|---|---|
+| Base (parámetros por defecto) | 0.9286 | 0.9630 / 0.9929 | 30 |
+| Reducido (`SelectFromModel`, umbral = mediana) | 0.9286 | 0.9630 / 0.9952 | 15 |
+| Optimizado (`GridSearchCV`, 162 combinaciones) | 0.9286 | 0.9630 / **0.9970** | 15 |
+
+**Conclusión:** la selección de variables fue la modificación con mayor efecto: redujo el modelo a la mitad de variables sin perder aciertos. El ajuste de hiperparámetros mejoró el ROC-AUC y redujo el sobreajuste, pero **no detectó ningún cáncer adicional** y multiplicó el tiempo de entrenamiento. Se recomienda el modelo reducido.
+
+### Cómo reproducirlo
+
+Abrir el notebook en Colab y ejecutar todas las celdas. No hay que subir archivos: el dataset viene incluido en scikit-learn.
 
 ---
 
