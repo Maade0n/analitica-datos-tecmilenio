@@ -6,6 +6,7 @@ Todos los notebooks están **ejecutados**, con las salidas y las gráficas ya re
 
 | Actividad | Tema | Ver |
 |---|---|---|
+| **Joblib** | Guardar y reutilizar un modelo SVM de vinos en PKL | [Abrir carpeta](Practica_Joblib/) |
 | **5** | Optimización de un modelo de ensamble (Random Forest) | [Abrir notebook](Actividad5/Actividad5_Optimizacion_Ensamble.ipynb) |
 | **4** | Clasificación con Máquinas de Soporte Vectorial (SVM) | [Abrir notebook](Actividad4/Actividad4_SVM_Wine.ipynb) |
 | **3** | Clasificación con SVM y agrupamiento con K-Means | [Abrir notebook](Actividad3/Actividad3_SVM_Clustering.ipynb) |
